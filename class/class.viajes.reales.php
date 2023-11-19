@@ -55,8 +55,8 @@ class ViajesReales extends Conexion {
         return $this->totalPaginas;
     }
 
-    // método para busqueda de información
-    public function obtenerDatosTracto() {
+    // Funcion trafr importe acumulado mensual
+    function obtenerDatosTracto() {
         //Llamamos la funcion paginación
         $this->calcularPaginas();
 
@@ -88,103 +88,31 @@ class ViajesReales extends Conexion {
                 $this->error = true;
         }
     }
+
+    // Funcion para sacar la meta y media
+    function totalMetas($mesEnCurso,$anioEnCurso) {
+        $metaaldia = "SELECT
+                        SUM(DISTINCT meta) AS metaGral
+                    FROM
+                        metatractor a
+                    WHERE
+                        a.mestm = ?
+                        AND a.anactualt = ?
+                    ";
+        $stmt = $this->connect()->prepare($metaaldia);
+        $stmt->execute([$mesEnCurso,$anioEnCurso]);
+        $metaAlDiaTranscurrido = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $metaAlDiaTranscurrido;
+    }
+
+    function metaAlDia($metaAlDia,$totaldiasDelMes,$diaEnCurso) {
+       
+            $metAlDia   =   ($metaAlDia / $totaldiasDelMes) * ($diaEnCurso -1);
+        
+        return $metAlDia;
+    }
+    
+
 }
 
-
-##########################################################################################################################################################################
-
-
-
-// require_once("class.conexion.php");
-// class ViajesReales extends Conexion {
-//     public $con;
-//     public $dateStart;
-//     public $dateEnd;
-//     public $Fechaprimerodemes;
-//     //variables para la paginacion
-//     private $paginaActual;
-//     private $totalPaginas;
-//     private $nResultados;
-//     private $resultadosPorPagina;
-//     private $indice;//apunta en que posicion se encuentra
-//     private $error = false;
-
-    
-//     function __construct($dateStart, $dateEnd, $nPorPagina) {
-//         //Parte de la paginacion
-//         //parent::__construct();
-//         $this->resultadosPorPagina = $nPorPagina;
-//         $this->indice = 0;
-//         $this->paginaActual = 1;
-//         $this->calcularPaginas();
-    
-//         $this->con = $this->connect();
-//         $this->dateStart   =   $dateStart;
-//         $this->dateEnd     =   $dateEnd;
-//         $this->Fechaprimerodemes = date('Y-m-01');
-//     }
-
-//     //Paginacion
-//     function calcularPaginas(){
-//         $totalregistros = $this->connect()->query("SELECT COUNT(*) AS total FROM viajesreales WHERE fecha >= '{$this->dateStart} 00:00:00' AND fecha <= '{$this->dateEnd} 23:00:00'");
-//         $this->nResultados = $totalregistros->fetch(PDO::FETCH_OBJ)->total;
-//         $this->totalPaginas = ceil($this->nResultados / $this->resultadosPorPagina);
-
-//         //mapear para modificar la pagina actual
-//         if (isset($_GET['pagina'])) {
-//             //Validar que pagina sea mayor a un numero
-//             if (is_numeric($_GET['pagina'])) {
-//                 //validar que pagina sea mayor o igual a 1 y menor o igual al total
-//                 if ($_GET['pagina'] >= 1 && $_GET['pagina'] <= $this->totalPaginas) {
-//                     $this->paginaActual = $_GET['pagina'];
-//                     $this->indice = ($this->paginaActual - 1) * ($this->resultadosPorPagina);
-//                 } else {
-//                     echo "No existe esa página";
-//                     $this->error = true;
-//                 }
-//             } else {
-//                 echo "Error al mostrar la página";
-//                 $this->error = true;
-//             }
-//         }
-//         return $this->totalPaginas;
-//     }
-    
-//     // método para busqueda de información
-//     public function obtenerDatosTracto() {
-//         //Llamamos la funcion paginación
-//         $this->calcularPaginas();
-
-//         if (!$this->error) {
-//             $consulta = "SELECT
-//                             a.tracto AS tracto,
-//                             SUM(a.importetotal + a.importetotal2) AS total
-//                         FROM
-//                             viajesreales a
-//                         WHERE
-//                             a.fecha >= '{$this->dateStart} 00:00:00' 
-//                             AND a.fecha <= '{$this->dateEnd} 23:00:00'
-//                             AND a.importetotal > '0'
-//                         GROUP BY
-//                             a.tracto
-//                         ORDER BY
-//                             total ASC
-//                         LIMIT {$this->indice}, {$this->resultadosPorPagina}";
-//             $respuestaConsulta = $this->con->query($consulta);
-//             $datosTracto = array();
-//             if ($respuestaConsulta->rowCount() > 0) {
-//                 while ($rowTracto = $respuestaConsulta->fetch(PDO::FETCH_ASSOC)) {
-//                     $row = array (
-//                         "tracto"=> $rowTracto["tracto"],
-//                         "total"=> $rowTracto["total"]
-//                     );
-//                     array_push($datosTracto, $row);
-//                 }            
-//             }
-//             return $datosTracto;
-//         } else {
-//             # code...
-//         }
-//     }
-// }
 ?>

@@ -1,26 +1,44 @@
 <?php
-date_default_timezone_set('America/Mexico_City');
-$date = new DateTime();
-$date->sub(new DateInterval('P1D'));
-$date = $date->format('Y-m-d');
-$nPorPagina = 20;
-$Fechaprimerodemes = date('Y-m-01');
-
+//Archivos a usar
+include_once("header-nav.php");
+include_once('../class/class.viajes.reales.php');
+include_once('../class/class.auto.select.php');
+include_once('../class/class.manejo.fechas.php');
 //Verificacion de errores
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
+//Paginacion
+$nPorPagina	= 20;
+//Manejo de fechas
+date_default_timezone_set('America/Mexico_City');
+$date 				= new DateTime();
+$date->sub(new DateInterval('P1D'));
+$date 				= $date->format('Y-m-d');
+$Fechaprimerodemes	= date('Y-m-01');
+$diaEnCurso			= date('d');
+$mesEnCurso 		= date('m');
+$anioEnCurso 		= date('Y');
+$totaldiasDelMes 	= date('t');
+//Instancias
+$datolAlDia 	= new ViajesReales($date, $date, $nPorPagina);
+$unidadNegocio	= new LlenadoAutDeSelect();
+// Funciones para presentar los datos
+$tractoGral 	= $datolAlDia->obtenerDatosTracto();
+$totalPaginas	= $datolAlDia->calcularPaginas();
+$unidades 		= $unidadNegocio->selectUnidadNegocio();
+$totalMetas		= $datolAlDia->totalMetas($mesEnCurso,$anioEnCurso);
+foreach ($totalMetas as $metaAlDia) {
+	echo $x = ($metaAlDia['metaGral'] / 30);
+	echo "<br>";
+	echo $y = $x*18;	
 
-include_once("header-nav.php");
-include_once('../class/class.viajes.reales.php');
-include_once('../class/class.auto.select.php');
-// include '../class/class.viajes.reales.php';
-// Instancias Clases
-$datolAlDia = new ViajesReales($date, $date, $nPorPagina);
-$tractoGral = $datolAlDia->obtenerDatosTracto();
-$totalPaginas = $datolAlDia->calcularPaginas();
-$unidadNegocio = new LlenadoAutDeSelect();
-$unidades = $unidadNegocio->selectUnidadNegocio();
+
+
+
+	echo $xmetaAlDia		= $datolAlDia->metaAlDia($metaAlDia['metaGral'],$totaldiasDelMes,$diaEnCurso);
+}
+
 ?>
 <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
 	<!-- Navbar  marcador de ruta y deslogeo-->
@@ -177,21 +195,37 @@ $unidades = $unidadNegocio->selectUnidadNegocio();
 											animation: {
 												onComplete: function() {
 													var chartInstance = this.chart,
-														ctx = chartInstance.ctx;
+													ctx = chartInstance.ctx;
 													ctx.textAlign = 'center';
 													ctx.textBaseline = 'bottom';
-
-													var yValue = 350000; //Aquí es donde se coloca el valor del UEN
+													//Linea de meta mensual
+													var yValue = 350000; //Aquí es donde se coloca el valor de la meta mensual
 													var yScale = this.scales['y-axis-0'];
 													var pixel = yScale.getPixelForValue(yValue);
-
 													ctx.save();
 													ctx.beginPath();
 													ctx.moveTo(30, pixel);
-													ctx.strokeStyle = '#ff0000';
+													ctx.strokeStyle = '#ff0000'; // línea a roja
 													ctx.lineTo(this.scales['x-axis-0'].right, pixel);
 													ctx.stroke();
 													ctx.restore();
+
+													//Linea de meta al dia
+													var yValue2 = 300000; //Aquí es donde se coloca el valor del UEN respecto a los dias trancurridos en el mes
+													var yScale2 = this.scales['y-axis-0'];
+													var pixel2 = yScale2.getPixelForValue(yValue2);
+													ctx.save();
+													ctx.beginPath();
+													ctx.moveTo(30, pixel2);
+													ctx.strokeStyle = '#00ff00'; // línea a verde
+													ctx.lineTo(this.scales['x-axis-0'].right, pixel2);
+													ctx.stroke();
+													ctx.restore();
+
+
+
+
+													
 												}
 											}
 										}
