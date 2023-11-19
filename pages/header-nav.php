@@ -5,9 +5,9 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
-	<link rel="icon" type="image/png" href="../assets/img/favicon.png">
+	<link rel="icon" type="image/png" href="../assets/img/logo1.png">
 	<title>
-		Soft UI Dashboard by Creative Tim
+		At Pilot
 	</title>
 	<!--     Fonts and icons     -->
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
@@ -32,7 +32,7 @@
 	<!-- Enlace al complemento que muestra las etiquetas de los datos -->
 	<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
 	<!-- Icons -->
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">	
 </head>
 
 <body class="g-sidenav-show  bg-gray-100">

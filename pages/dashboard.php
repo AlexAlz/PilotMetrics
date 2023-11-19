@@ -12,11 +12,15 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 include_once("header-nav.php");
-include '../class/class.viajes.reales.php';
-//InstanCiar Clase
+include_once('../class/class.viajes.reales.php');
+include_once('../class/class.auto.select.php');
+// include '../class/class.viajes.reales.php';
+// Instancias Clases
 $datolAlDia = new ViajesReales($date, $date, $nPorPagina);
 $tractoGral = $datolAlDia->obtenerDatosTracto();
 $totalPaginas = $datolAlDia->calcularPaginas();
+$unidadNegocio = new LlenadoAutDeSelect();
+$unidades = $unidadNegocio->selectUnidadNegocio();
 ?>
 <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
 	<!-- Navbar  marcador de ruta y deslogeo-->
@@ -32,14 +36,10 @@ $totalPaginas = $datolAlDia->calcularPaginas();
 			</nav>
 			<div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
 				<div class="ms-md-auto pe-md-3 d-flex align-items-center">
-					<!-- <div class="input-group">
-						<span class="input-group-text text-body"><i class="fas fa-search" aria-hidden="true"></i></span>
-						<input type="text" class="form-control" placeholder="Type here...">
-					</div> -->
 				</div>
 				<ul class="navbar-nav  justify-content-end">
 					<li class="nav-item d-flex align-items-center">
-						<a href="javascript:;" class="nav-link text-body font-weight-bold px-0">
+						<a href="../index.html" class="nav-link text-body font-weight-bold px-0">
 							<i class="fa fa-user me-sm-1"></i>
 							<span class="d-sm-inline d-none">Sign In</span>
 						</a>
@@ -51,107 +51,60 @@ $totalPaginas = $datolAlDia->calcularPaginas();
 	<!-- End Navbar -->
 	<div class="container-fluid py-2">
 		<!--FILA DE FORMULARIO -->
-		<div class="row mt-4">
-			<nav class="col-12 navbar navbar-main navbar-expand-lg px-0 shadow-none border-radius-xl" navbar-scroll="true">
-				<div class="container-fluid py-1 px-3">
-					<div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
-						<div class="card d-flex flex-row justify-content-between">
-								<!-- Fecha de inicio -->
-								<div class="flex-fill p-4">
-									<div class="card">
-										<div class="card-body p-3">
-											<div class="row">
-												<div class="col-8">
-													<div class="numbers">
-														<label for="start">Fecha inicial:</label><br>
-														<input class="form-select" type="date" id="date_start" name="start"><br>
-													</div>
-												</div>
-												<div class="col-4 text-end">
-													<div class="icon icon-shape bg-gradient-info shadow text-center border-radius-md">
-														<i class="fa fa-calendar text-lg opacity-10" aria-hidden="true"></i>
-													</div>
-												</div>
-											</div>
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="card">
+					<table class="table table-sm text-center">
+						<thead>
+							<tr>
+								<th scope="col" class="text-uppercase ">Fecha inicial</th>
+								<th scope="col" class="text-uppercase ">Fecha final</th>
+								<th scope="col" class="text-uppercase ">Unidad de Negocio</th>
+								<th scope="col" class="text-uppercase ">Boton</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="align-middle"><!-- Fecha de inicio -->
+									<div class="form-group">
+										<br>
+										<input class="form-control form-control-sm" type="date" id="date_start" name="start"><br>
+									</div>
+								</td>
+								<td class="align-middle"><!-- Fecha de Termino -->
+									<div class="form-group">
+										<br>
+										<input class="form-control form-control-sm" type="date" id="date_end" name="end"><br>
+									</div>
+								</td>
+								<td class="align-middle"><!-- Unidad de Negocio -->
+									<div class="form-group">
+										<select class="form-control form-control-sm" id="uen" name="uen">										
+											<option selected>Opciónes UEN</option>
+											<?php $value = 1; foreach ($unidades as $unidad) : ?>
+												<option value="<?= $value++; ?>"><?= $unidad['uen']; ?></option>
+											<?php endforeach; ?>
+										</select>
+									</div>
+								</td>
+								<td class="align-middle"><!-- Boton -->
+									<div class="form-group">
+										<div class="nav-item d-flex justify-content-center">
+											<a href="" id="btn_consumo_por_unidad" target="_blank" class="btn btn-info btn-bg text-white" role="button" aria-pressed="true">
+												Consultar
+											</a>
 										</div>
 									</div>
-								</div>
-								<!-- Fecha de Termino -->
-								<div class="flex-fill p-4">
-									<div class="card">
-										<div class="card-body p-3">
-											<div class="row">
-												<div class="col-8">
-													<div class="numbers">
-														<label for="end">Fecha final:</label><br>
-														<input class="form-select" type="date" id="date_end" name="end"><br>
-													</div>
-												</div>
-												<div class="col-4 text-end">
-													<div class="icon icon-shape bg-gradient-info shadow text-center border-radius-md">
-														<i class="fa fa-calendar text-lg opacity-10" aria-hidden="true"></i>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<!-- Select UEN -->
-								<div class="flex-fill p-4">
-									<div class="card">
-										<div class="card-body p-3">
-											<div class="row">
-												<div class="col-8">
-													<div class="numbers">
-														<label for="end">Unidad de Negocio</label><br>
-														<select class="form-select form-select-lg" id="uen" name="uen">
-															<option selected>Opciónes UEN</option>
-															<option value="1">Automotriz</option>
-															<option value="2">Full</option>
-															<option value="3">Sencillo Seco</option>
-															<option value="4">Refrigerado</option>
-															<option value="5">Local</option>
-															<option value="6">Pilot</option>
-															<option value="7">No aplica</option>
-														</select>
-													</div>
-												</div>
-												<div class="col-4 text-end">
-													<div class="icon icon-shape bg-gradient-info shadow text-center border-radius-md">
-													<i class="fa fa-list-ol text-lg opacity-10" aria-hidden="true"></i>
-													<!-- <i class="fa fa-calendar text-lg opacity-10" aria-hidden="true"></i> -->
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<!-- Botón Consultar -->
-								<div class="card-body d-flex justify-content-between align-items-center p-4">
-									<div class="card">
-										<div class="card-body p-3">
-											<div class="row">
-												<div class="col-8">
-													<div class="numbers">
-														<div class="nav-item d-flex align-self-end">
-															<a href="" id="btn_consumo_por_unidad" target="_blank" class="btn btn-primary active mb-0 text-white" role="button" aria-pressed="true">
-																Consultar
-															</a>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-						</div>
-					</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
-			</nav>
+			</div>
 		</div>
 		<!-- END FILA DE FORMULARIO -->
 
-		<div id="id_para_mostrar_datos">
+		<div id="datosProcesados">
 
 			<!-- GRAFICO CHARTjs -->
 			<div class="row mt-4">
@@ -169,81 +122,79 @@ $totalPaginas = $datolAlDia->calcularPaginas();
 								<script>
 									var ctx = document.getElementById('myChart').getContext('2d');
 									var myChart = new Chart(ctx, {
-									type: 'bar',
-									data: {
-										//labels: ['Rojo', 'Azul', 'Amarillo', 'Verde', 'Morado', 'Naranja'],
-										labels: [
-												<?php 
+										type: 'bar',
+										data: {
+											labels: [
+												<?php
+												$count = count($tractoGral);
+
+												$i = 0;
+												foreach ($tractoGral as $viaje) {
+													$i++;
+													echo "'" . $viaje['tracto'] . "'";
+													if ($i != $count) {
+														echo ",";
+													}
+												}
+												?>
+											],
+											datasets: [{
+												label: 'IMPORTE',
+												data: [
+													<?php
 													$count = count($tractoGral);
-													
+
 													$i = 0;
 													foreach ($tractoGral as $viaje) {
 														$i++;
-														echo "'".$viaje['tracto']."'";
-														if($i != $count) {
+														echo "'" . $viaje['total'] . "'";
+														if ($i != $count) {
 															echo ",";
 														}
 													}
-												?>
-											],
-										datasets: [{
-											label: 'Importe',
-											//data: [12, 19, 3, 5, 2, 3],
-											data: [
-													<?php 
-														$count = count($tractoGral);
-														
-														$i = 0;
-														foreach ($tractoGral as $viaje) {
-															$i++;
-															echo "'".$viaje['total']."'";
-															if($i != $count) {
-																echo ",";
-															}
-														}
 													?>
-												],									
-											borderWidth: 1,
-											borderColor: '#0077aa',
-											backgroundColor: '#00adf7',
-										}]
-									},
-									options: {
-										scales: {
-											y: {
-												beginAtZero: true,
-												max: 5000
-											}
+												],
+												borderWidth: 1,
+												borderColor: '#1a5873',
+												backgroundColor: '#00adf7',
+											}]
 										},
-										plugins: {
-											datalabels: {
-												color: 'white',
-												font: {
-													size: 18
+										options: {
+											scales: {
+												y: {
+													beginAtZero: true,
+													max: 5000
+												}
+											},
+											plugins: {
+												datalabels: {
+													color: 'white',
+													font: {
+														size: 18
+													}
+												}
+											},
+											animation: {
+												onComplete: function() {
+													var chartInstance = this.chart,
+														ctx = chartInstance.ctx;
+													ctx.textAlign = 'center';
+													ctx.textBaseline = 'bottom';
+
+													var yValue = 350000; //Aquí es donde se coloca el valor del UEN
+													var yScale = this.scales['y-axis-0'];
+													var pixel = yScale.getPixelForValue(yValue);
+
+													ctx.save();
+													ctx.beginPath();
+													ctx.moveTo(30, pixel);
+													ctx.strokeStyle = '#ff0000';
+													ctx.lineTo(this.scales['x-axis-0'].right, pixel);
+													ctx.stroke();
+													ctx.restore();
 												}
 											}
-										},
-										animation: {
-											onComplete: function () {
-												var chartInstance = this.chart,
-													ctx = chartInstance.ctx;
-												ctx.textAlign = 'center';
-												ctx.textBaseline = 'bottom';
-
-												var yValue = 350000; //Aquí es donde se coloca el valor del UEN
-												var yScale = this.scales['y-axis-0'];
-												var pixel = yScale.getPixelForValue(yValue);
-
-												ctx.save();
-												ctx.beginPath();
-												ctx.moveTo(30, pixel * 2);
-												ctx.strokeStyle = '#ff0000';
-												ctx.lineTo(this.scales['x-axis-0'].right * 2, pixel * 2);
-												ctx.stroke();
-												ctx.restore();
-											}
 										}
-									}
 									});
 								</script>
 								<!-- END DATOS A GRAFICAR -->
@@ -264,7 +215,7 @@ $totalPaginas = $datolAlDia->calcularPaginas();
 									<div class="card-body px-0 pt-0 pb-2">
 										<div class="table-responsive p-0 ">
 											<table class="table align-items-center justify-content-center mb-0 display table-striped table-bordered" id="example" style="width:100%">
-												<thead  class="text-center">
+												<thead class="text-center">
 													<tr class="table-dark">
 														<th scope="col" class="text-uppercase">Tracto</th>
 														<th scope="col" class="text-uppercase">Importe</th>
@@ -273,7 +224,7 @@ $totalPaginas = $datolAlDia->calcularPaginas();
 													</tr>
 												</thead>
 												<tbody class="text-center">
-													<?php foreach ($tractoGral as $viaje): ?>
+													<?php foreach ($tractoGral as $viaje) : ?>
 														<tr>
 															<td>
 																<div class="px-2">
@@ -303,11 +254,12 @@ $totalPaginas = $datolAlDia->calcularPaginas();
 									<div class="card-footer pb-0">
 										<div class="pagination" style="display: flex; justify-content: center; align-items: center; height: 100%;">
 											<br>
-											<?php for($i = 1; $i <= $totalPaginas; $i++): ?>
+											<?php for ($i = 1; $i <= $totalPaginas; $i++) : ?>
 												<a class="page-link" href="?pagina=<?php echo $i; ?>"><?php echo $i; ?></a>
 											<?php endfor; ?>
 										</div>
 									</div>
+									<br>
 								</div>
 							</div>
 						</div>
@@ -315,11 +267,7 @@ $totalPaginas = $datolAlDia->calcularPaginas();
 				</div>
 			</div>
 			<!-- END TABLA CON DATOS -->
-
 		</div>
-
-
-		
 	</div>
 	<!-- <div class="row mt-4">
 		<div class="col-lg-5 mb-lg-0 mb-4">
@@ -893,6 +841,6 @@ $totalPaginas = $datolAlDia->calcularPaginas();
 			</div>
 		</div>
 	</div> -->
-<?php
-include_once("footer.php");
-?>
+	<?php
+	include_once("footer.php");
+	?>
