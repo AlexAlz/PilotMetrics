@@ -16,19 +16,30 @@ $date 				= new DateTime();
 $date->sub(new DateInterval('P1D'));
 $date 				= $date->format('Y-m-d');
 $Fechaprimerodemes	= date('Y-m-01');
-$diaEnCurso			= date('d');
-$mesEnCurso 		= date('m');
-$anioEnCurso 		= date('Y');
-$totaldiasDelMes 	= date('t');
+echo $diaEnCurso			= date('d');
+echo "<br>";
+echo $mesEnCurso 		= date('m');
+echo "<br>";
+echo $anioEnCurso 		= date('Y');
+echo "<br>";
+echo $totaldiasDelMes 	= date('t');
 //Instancias
 $datolAlDia 	= new ViajesReales($date, $date, $nPorPagina);
 $unidadNegocio	= new LlenadoAutDeSelect();
+$obtmes			= new ManejoDeFechas();
 // Funciones para presentar los datos
 $tractoGral 	= $datolAlDia->obtenerDatosTracto();
 $totalPaginas	= $datolAlDia->calcularPaginas();
 $unidades 		= $unidadNegocio->selectUnidadNegocio();
+$mestexto		= $obtmes->obtenerMes($mesEnCurso);
+
 $totalMetas		= $datolAlDia->totalMetas($mesEnCurso,$anioEnCurso);
+
+
 foreach ($totalMetas as $metaAlDia) {
+	
+	echo $metaAlDia['metaGral'];
+	echo "<br>";
 	echo $x = ($metaAlDia['metaGral'] / 30);
 	echo "<br>";
 	echo $y = $x*18;	
