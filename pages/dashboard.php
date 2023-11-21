@@ -1,54 +1,51 @@
 <?php
-//Archivos a usar
-include_once("header-nav.php");
-include_once('../class/class.viajes.reales.php');
-include_once('../class/class.auto.select.php');
-include_once('../class/class.manejo.fechas.php');
-//Verificacion de errores
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-//Paginacion
-$nPorPagina	= 20;
-//Manejo de fechas
-date_default_timezone_set('America/Mexico_City');
-$date 				= new DateTime();
-$date->sub(new DateInterval('P1D'));
-$date 				= $date->format('Y-m-d');
-$Fechaprimerodemes	= date('Y-m-01');
-echo $diaEnCurso			= date('d');
-echo "<br>";
-echo $mesEnCurso 		= date('m');
-echo "<br>";
-echo $anioEnCurso 		= date('Y');
-echo "<br>";
-echo $totaldiasDelMes 	= date('t');
-//Instancias
-$datolAlDia 	= new ViajesReales($date, $date, $nPorPagina);
-$unidadNegocio	= new LlenadoAutDeSelect();
-$obtmes			= new ManejoDeFechas();
-// Funciones para presentar los datos
-$tractoGral 	= $datolAlDia->obtenerDatosTracto();
-$totalPaginas	= $datolAlDia->calcularPaginas();
-$unidades 		= $unidadNegocio->selectUnidadNegocio();
-$mestexto		= $obtmes->obtenerMes($mesEnCurso);
+	//Archivos a usar
+	include_once("header-nav.php");
+	include_once('../class/class.viajes.reales.php');
+	include_once('../class/class.auto.select.php');
+	include_once('../class/class.manejo.fechas.php');
+	//Verificacion de errores
+	ini_set('display_errors', 1);
+	ini_set('display_startup_errors', 1);
+	error_reporting(E_ALL);
+	//Paginacion
+	$nPorPagina	= 20;
+	//Manejo de fechas
+	date_default_timezone_set('America/Mexico_City');
+	$date 				= new DateTime();
+	$date->sub(new DateInterval('P1D'));
+	$date 				= $date->format('Y-m-d');
+	$Fechaprimerodemes	= date('Y-m-01');
+	$diaEnCurso			= date('d');
+	$mesEnCurso 		= date('m');
+	$anioEnCurso 		= date('Y');
+	$totaldiasDelMes 	= date('t');
+	//Instancias
+	$datolAlDia 	= new ViajesReales($date, $date, $nPorPagina);
+	$unidadNegocio	= new LlenadoAutDeSelect();
+	$obtmes			= new ManejoDeFechas();
 
-$totalMetas		= $datolAlDia->totalMetas($mesEnCurso,$anioEnCurso);
-
-
-foreach ($totalMetas as $metaAlDia) {
-	
-	echo $metaAlDia['metaGral'];
-	echo "<br>";
-	echo $x = ($metaAlDia['metaGral'] / 30);
-	echo "<br>";
-	echo $y = $x*18;	
-
-
-
-
-	echo $xmetaAlDia		= $datolAlDia->metaAlDia($metaAlDia['metaGral'],$totaldiasDelMes,$diaEnCurso);
-}
+	//Funciones para presentar los datos
+	$tractoGral 	= $datolAlDia->obtenerDatosTracto();
+	$totalPaginas	= $datolAlDia->calcularPaginas();
+	$unidades 		= $unidadNegocio->selectUnidadNegocio();//Llena SELECT de formulario
+	//trabajando
+	$mestexto		= $obtmes->obtenerMes($mesEnCurso);//Se pasa el dato extraido del sistema en numero y se convierte a texto para consulta
+	$totalMetasAlDia= $datolAlDia->totalMetas($mestexto,$anioEnCurso);
+	//Meta al dia
+	foreach ($totalMetasAlDia AS $x) {
+		$sumaMetaGral = $x['SumaMetaGral'];
+		$cantidadDeMetas = $x['cantidadDeMeta'];
+		$mediaMetaGral = $sumaMetaGral / $cantidadDeMetas;
+		$metaPorDia = $mediaMetaGral / $totaldiasDelMes;
+		$totalMetaAlDia = $metaPorDia * $diaEnCurso;
+	}
+	// Media de meta Mensual
+	// foreach ($totalMetasAlDia AS $x) {
+	// 	$sumaMetaGral = $x['SumaMetaGral'];
+	// 	$cantidadDeMetas = $x['cantidadDeMeta'];
+	// 	$mediaMetaGral = $sumaMetaGral / $cantidadDeMetas;
+	// }
 
 ?>
 <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
@@ -210,6 +207,7 @@ foreach ($totalMetas as $metaAlDia) {
 													ctx.textAlign = 'center';
 													ctx.textBaseline = 'bottom';
 													//Linea de meta mensual
+													
 													var yValue = 350000; //Aquí es donde se coloca el valor de la meta mensual
 													var yScale = this.scales['y-axis-0'];
 													var pixel = yScale.getPixelForValue(yValue);
@@ -222,7 +220,7 @@ foreach ($totalMetas as $metaAlDia) {
 													ctx.restore();
 
 													//Linea de meta al dia
-													var yValue2 = 300000; //Aquí es donde se coloca el valor del UEN respecto a los dias trancurridos en el mes
+													var yValue2 = <?php echo $totalMetaAlDia; ?>; //Aquí es donde se coloca el valor del UEN respecto a los dias trancurridos en el mes
 													var yScale2 = this.scales['y-axis-0'];
 													var pixel2 = yScale2.getPixelForValue(yValue2);
 													ctx.save();
@@ -232,11 +230,6 @@ foreach ($totalMetas as $metaAlDia) {
 													ctx.lineTo(this.scales['x-axis-0'].right, pixel2);
 													ctx.stroke();
 													ctx.restore();
-
-
-
-
-													
 												}
 											}
 										}

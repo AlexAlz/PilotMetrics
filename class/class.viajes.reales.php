@@ -92,27 +92,20 @@ class ViajesReales extends Conexion {
     // Funcion para sacar la meta y media
     function totalMetas($mesEnCurso,$anioEnCurso) {
         $metaaldia = "SELECT
-                        SUM(DISTINCT meta) AS metaGral
+                        COUNT(DISTINCT meta) AS cantidadDeMeta,
+                        SUM(DISTINCT meta) AS SumaMetaGral
                     FROM
                         metatractor a
                     WHERE
                         a.mestm = ?
                         AND a.anactualt = ?
+                        AND a.meta != '0'
                     ";
         $stmt = $this->connect()->prepare($metaaldia);
         $stmt->execute([$mesEnCurso,$anioEnCurso]);
         $metaAlDiaTranscurrido = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $metaAlDiaTranscurrido;
     }
-
-    function metaAlDia($metaAlDia,$totaldiasDelMes,$diaEnCurso) {
-       
-            $metAlDia   =   ($metaAlDia / $totaldiasDelMes) * ($diaEnCurso -1);
-        
-        return $metAlDia;
-    }
-    
-
 }
 
 ?>
