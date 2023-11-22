@@ -29,6 +29,7 @@
 	$tractoGral 	= $datolAlDia->obtenerDatosTracto();
 	$totalPaginas	= $datolAlDia->calcularPaginas();
 	$unidades 		= $unidadNegocio->selectUnidadNegocio();//Llena SELECT de formulario
+
 	//trabajando
 	$mestexto		= $obtmes->obtenerMes($mesEnCurso);//Se pasa el dato extraido del sistema en numero y se convierte a texto para consulta
 	$totalMetasAlDia= $datolAlDia->totalMetas($mestexto,$anioEnCurso);
@@ -80,51 +81,51 @@
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="card">
-					<table class="table table-sm text-center">
-						<thead>
-							<tr>
-								<th scope="col" class="text-uppercase ">Fecha inicial</th>
-								<th scope="col" class="text-uppercase ">Fecha final</th>
-								<th scope="col" class="text-uppercase ">Unidad de Negocio</th>
-								<th scope="col" class="text-uppercase ">Boton</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td class="align-middle"><!-- Fecha de inicio -->
-									<div class="form-group">
-										<br>
-										<input class="form-control form-control-sm" type="date" id="date_start" name="start"><br>
-									</div>
-								</td>
-								<td class="align-middle"><!-- Fecha de Termino -->
-									<div class="form-group">
-										<br>
-										<input class="form-control form-control-sm" type="date" id="date_end" name="end"><br>
-									</div>
-								</td>
-								<td class="align-middle"><!-- Unidad de Negocio -->
-									<div class="form-group">
-										<select class="form-control form-control-sm" id="uen" name="uen">										
-											<option selected>Opciónes UEN</option>
-											<?php $value = 1; foreach ($unidades as $unidad) : ?>
-												<option value="<?= $value++; ?>"><?= $unidad['uen']; ?></option>
-											<?php endforeach; ?>
-										</select>
-									</div>
-								</td>
-								<td class="align-middle"><!-- Boton -->
-									<div class="form-group">
-										<div class="nav-item d-flex justify-content-center">
-											<a href="" id="btn_consumo_por_unidad" target="_blank" class="btn btn-info btn-bg text-white" role="button" aria-pressed="true">
-												Consultar
-											</a>
+					<form id="formConsumoPorTipoUnidad" method="POST">
+						<table class="table table-sm text-center">
+							<thead>
+								<tr>
+									<th scope="col" class="text-uppercase ">Fecha inicial</th>
+									<th scope="col" class="text-uppercase ">Fecha final</th>
+									<th scope="col" class="text-uppercase ">Unidad de Negocio</th>
+									<th scope="col" class="text-uppercase ">Boton</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td class="align-middle"><!-- Fecha de inicio -->
+										<div class="form-group">
+											<br>
+											<input class="form-control form-control-sm" type="date" id="date_start" name="date_start"><br>
 										</div>
-									</div>
-								</td>
-							</tr>
-						</tbody>
-					</table>
+									</td>
+									<td class="align-middle"><!-- Fecha de Termino -->
+										<div class="form-group">
+											<br>
+											<input class="form-control form-control-sm" type="date" id="date_end" name="date_end"><br>
+										</div>
+									</td>
+									<td class="align-middle"><!-- Unidad de Negocio -->
+										<div class="form-group">
+											<select class="form-control form-control-sm" id="uen" name="uen">										
+												<option selected>Opciónes UEN</option>
+												<?php $value = 1; foreach ($unidades as $unidad) : ?>
+													<option value="<?= $unidad['uen']; ?>"><?= $unidad['uen']; ?></option>
+												<?php endforeach; ?>
+											</select>
+										</div>
+									</td>
+									<td class="align-middle"><!-- Boton -->
+										<div class="form-group">
+											<div class="nav-item d-flex justify-content-center">
+												<input type="button" value="Consultar" class="btn btn-info btn-bg text-white" id="btn_consumo_por_unidad" name="btn_consumo_por_unidad">
+											</div>
+										</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</form>
 				</div>
 			</div>
 		</div>

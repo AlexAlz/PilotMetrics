@@ -209,29 +209,33 @@
 <script src="../assets/js/soft-ui-dashboard.min.js?v=1.0.7"></script>
 <!-- Datatables -->
 <script src="https://cdn.datatables.net/v/bs5/dt-1.13.7/datatables.min.js"></script>
-<script>
+<!-- <script>
 	$(document).ready(function () {
 		$('#example').DataTable();
 	});
-</script>
+</script> -->
 <!-- SCRIPT BUSQUEDA POR DIAS ESPECIFICADO -->
 <script>
-	$('#btn_consumo_por_unidad').click(function() {
-        var date_start = $('#date_start');
-        var date_end = $('#date_end');
-		var uen = $('#uen');
-		$.ajax({
-			url: 'viewsPorBusqueda/consumoPorUnidad.php',
-			type: 'POST',
-			data: {date_start: date_start,date_end: date_end, uen: uen },
-			beforeSend: function() {
-				$("#id_para_mostrar_datos").html("<div style='text-align:center;'><samp>Calculando registros consumidos...</samp><br><br><br><img src='assets/images/loading/ajax-loader.gif' alt='Telefonia Mensual'></div>");
-			},
-			success: function(res) {
-				$('#id_para_mostrar_datos').html(res);
-			}
+	$(document).ready(function(){
+		$("#btn_consumo_por_unidad").click(function(){
+			var fechaInicio = $("#date_start").val();
+			var fechaTermino = $("#date_end").val();
+			var unidadNegocio = $("#uen").val();
+
+			$.ajax({
+				url: '../viewsPorBusqueda/consumoPorUnidadYMetaMensual.php',
+				type: 'post',
+				data: {date_start: fechaInicio, date_end: fechaTermino, uen: unidadNegocio},
+				beforeSend: function() {
+					$("#datosProcesados").html("<div style='text-align:center;'><samp>Calculando registros...</samp><br><br><br><img src='../assets/img/gif/loading.gif' alt='Procesando Datos'></div>");
+				},
+				success: function(response){
+					$("#datosProcesados").html(response);
+				}
+			});
 		});
 	});
+
 </script>
 
 
