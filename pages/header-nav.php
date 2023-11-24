@@ -7,9 +7,9 @@
 	<link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-touch-icon.png">
 	<link rel="icon" type="image/png" href="../assetS/img/apple-touch-icon.png">
 	<title>
-		At Pilot
+		At Pilot datatable
 	</title>
-	<!--     Fonts and icons     -->
+	<!-- Fonts and icons -->
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
 	<!-- Font Awesome Icons -->
 	<script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
@@ -21,12 +21,21 @@
 	<script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
 	<!-- Libreria para graficar chart.js -->
 	<script src="https://cdn.jsdelivr.net/npm/chart.js@latest/dist/Chart.min.js"></script>
+	<!-- Libreria para graficar highchart -->
+	<script src="../assets/js/chart/accessibility.js"></script>
+	<script src="../assets/js/chart/export-data.js"></script>
+	<script src="../assets/js/chart/exporting.js"></script>
+	<script src="../assets/js/chart//highcharts.js"></script>
+	
+
 	<!-- Enlace al complemento que muestra las etiquetas de los datos -->
 	<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
 	<!-- Icons -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">	
 	<!-- Carga jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<!-- DataTable -->
+	<link rel="stylesheet" href="//cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
 </head>
 
 <body class="g-sidenav-show  bg-gray-100">

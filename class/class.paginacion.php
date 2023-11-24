@@ -3,10 +3,12 @@ include_once('class.conexion.php');
 
 class Paginacion extends Conexion {
      
-    public $con;
+    public $conexion;
+    public $Fechaprimerodemes;
     public $dateStart;
     public $dateEnd;
-    private $consultaCount;//Consulta
+    public $consultaCount;
+    public $numPorPaginas;
 
     //variables para la paginacion
     private $paginaActual;
@@ -16,25 +18,24 @@ class Paginacion extends Conexion {
     private $indice;//apunta en que posicion se encuentra
     private $error = false;
 
-    function __construct($consultaCount, $dateStart, $dateEnd, $nPorPagina)
+    function __construct($dateStart, $dateEnd, $consultaCount, $numPorPaginas)
     {   
-        $this->resultadosPorPagina = $nPorPagina;
-        $this->indice = 0;
-        $this->paginaActual = 1;
-        $this->calcularPaginas();
-        
-        $this->con = $this->connect();
+        $this->conexion     =   $this->connect();
+        $this->indice               = 0;
+        $this->paginaActual         = 1;
+        $this->resultadosPorPagina  = $numPorPaginas;
         $this->dateStart    =   $dateStart;
         $this->dateEnd      =   $dateEnd;
-        $this->consultaCount=   $consultaCount;//Consulta
+        $this->consultaCount=   $consultaCount;
+        $this->Fechaprimerodemes = date('Y-m-01');
+        $this->calcularPaginas();
     }
     
 
-    //Paginacion__
+    //Paginacion
     function calcularPaginas(){
-        $stmt = $this->connect()->prepare($this->consultaCount);
-        // $consultaCount = "SELECT COUNT(DISTINCT(tracto)) AS total FROM viajesreales WHERE DATE(fecha) >= ? AND DATE(fecha) <= ? ";
-        // $stmt = $this->connect()->prepare($this->consultaCount);
+        
+        $stmt = $this->conexion->prepare($this->consultaCount);
         $stmt->execute([$this->dateStart . ' 00:00:00', $this->dateEnd . ' 23:00:00']);
         $this->nResultados = $stmt->fetch(PDO::FETCH_OBJ)->total;
         $this->totalPaginas = ceil($this->nResultados / $this->resultadosPorPagina);

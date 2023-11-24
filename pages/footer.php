@@ -209,11 +209,7 @@
 <script src="../assets/js/soft-ui-dashboard.min.js?v=1.0.7"></script>
 <!-- Datatables -->
 <script src="https://cdn.datatables.net/v/bs5/dt-1.13.7/datatables.min.js"></script>
-<!-- <script>
-	$(document).ready(function () {
-		$('#example').DataTable();
-	});
-</script> -->
+
 <!-- SCRIPT BUSQUEDA POR DIAS ESPECIFICADO -->
 <script>
 	$(document).ready(function(){
@@ -237,7 +233,270 @@
 	});
 
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="//cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
 
+<!-- Script principal-->
+<script>
+	// $(document).ready(function() {
+	// 	// Inicializar la tabla
+	// 	var table = $('#myTable').DataTable({
+	// 		"order": [[ 1, "desc" ]],
+	// 		"language": {
+	// 			"processing":     "Procesando...",
+	// 			"lengthMenu":     "Mostrar _MENU_ registros",
+	// 			"zeroRecords":    "No se encontraron resultados",
+	// 			"emptyTable":     "Ningún dato disponible en esta tabla",
+	// 			"info":           " Registros del _START_ al _END_ de un total de _TOTAL_ registros",
+	// 			"infoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+	// 			"infoFiltered":   "(filtrado de un total de _MAX_ registros)",
+	// 			"infoPostFix":    "",
+	// 			"search":         "Buscar:",
+	// 			"url":            "",
+	// 			"infoThousands":  ",",
+	// 			"loadingRecords": "Cargando...",
+	// 			"paginate": {
+	// 				"first":    "Primero",
+	// 				"last":     "Último",
+	// 				"next":     "Siguiente",
+	// 				"previous": "Anterior"
+	// 			},
+	// 			"aria": {
+	// 				"sortAscending":  ": Activar para ordenar la columna de manera ascendente",
+	// 				"sortDescending": ": Activar para ordenar la columna de manera descendente"
+	// 			}
+	// 		}
+	// 	});
+				
+	// 	// Inicializar el gráfico HIGHCHARTS
+	// 	var chartOptions = {
+	// 		chart: {
+	// 			type: 'column'
+	// 		},
+	// 		title: {
+	// 			text: ''
+	// 		},
+	// 		xAxis: {
+	// 			categories: [] // Etiquetas vacías
+	// 		},
+	// 		yAxis: {
+	// 			title: {
+	// 				text: 'IMPORTE'
+	// 			},
+	// 			max: 1000000 // Ajustar el máximo del eje y según tus datos
+	// 		},
+	// 		plotOptions: {
+	// 			column: {
+	// 				borderColor: 'rgba(54, 162, 235, 1)',
+	// 				borderWidth: 1
+	// 			}
+	// 		},
+	// 		series: [{
+	// 			name: 'IMPORTE',
+	// 			data: [], // Datos vacíos
+	// 			color: 'rgba(0, 154, 219, 1)'
+	// 		}],
+
+	// 		plotOptions: {
+	// 			column: {
+	// 				pointPadding: 0.2,
+	// 				borderWidth: 0
+	// 			}
+	// 		},
+	// 		yAxis: {
+	// 			plotLines: [
+	// 				{
+	// 					color: 'red',        		// Color
+	// 					dashStyle: 'solid',  		// Estilo
+	// 					width: 1.5,            		// Grosor
+	// 					value: 375000,           	// Valor 
+	// 					label: {
+	// 						text: 'Meta mensual',   // Etiqueta
+	// 						align: 'left',    		// Posición
+	// 						x: 10             		// Desplazamiento
+	// 					}
+	// 				},
+	// 				{
+	// 					color: 'green',        
+	// 					dashStyle: 'solid',  
+	// 					width: 1.5,            
+	// 					value: <?php echo $metaAlDia; ?>,           
+	// 					label: {
+	// 						text: 'Meta al dia',    
+	// 						align: 'left',    
+	// 						x: 10             
+	// 					}
+	// 				}
+	// 			]
+	// 		}
+	// 	};
+
+	// 	var myChart = Highcharts.chart('myChart', chartOptions);
+
+	// 	// Función para actualizar el gráfico con los datos de la tabla
+	// 	function updateChart(tableData) {
+	// 		var categories = tableData.map(function(row) {
+	// 			return row[0];
+	// 		});
+	// 		var data = tableData.map(function(row) {
+	// 			//Eliminamos caracteres no numericos y convertimos a numero entero
+	// 			var numericValue = parseInt(row[1].replace(/[^\d.]/g, ''));
+	// 			console.log("Estado2:",numericValue);
+	// 			return numericValue;
+	// 		});
+	// 		// Actualizar el gráfico con las nuevas etiquetas y datos
+	// 		// Asegúrate de que myChart.xAxis[0] y myChart.series[0] existen
+	// 		if (myChart.xAxis[0] && myChart.series[0]) {
+	// 				// Actualizar el gráfico con las nuevas etiquetas y datos
+	// 				myChart.xAxis[0].setCategories(categories);
+	// 				myChart.series[0].setData(data);
+	// 			}
+	// 	}
+
+		
+	// 	// Actualizar el gráfico al cargar la página
+	// 	var initialData = table.rows({page: 'current'}).data();
+	// 	updateChart(initialData);
+	// 	// Actualizar el gráfico cada vez que se cambia la página de la tabla
+	// 	table.on('draw', function() {
+	// 		var data = table.rows({page:'current'}).data();
+	// 		//console.log("Datos a actualizar",data);
+	// 		updateChart(data);
+	// 	});
+	// });
+</script>
+
+<script>
+$(document).ready(function() {
+	// Inicializamos la tabla y cambiamos por Idioma en Español
+	var table = $('#myTable').DataTable({
+			"order": [[ 1, "desc" ]],
+			"language": {
+				"processing":     "Procesando...",
+				"lengthMenu":     "Mostrar _MENU_ registros",
+				"zeroRecords":    "No se encontraron resultados",
+				"emptyTable":     "Ningún dato disponible en esta tabla",
+				"info":           " Registros del _START_ al _END_ de un total de _TOTAL_ registros",
+				"infoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+				"infoFiltered":   "(filtrado de un total de _MAX_ registros)",
+				"infoPostFix":    "",
+				"search":         "Buscar:",
+				"url":            "",
+				"infoThousands":  ",",
+				"loadingRecords": "Cargando...",
+				"paginate": {
+					"first":    "Primero",
+					"last":     "Último",
+					"next":     "Siguiente",
+					"previous": "Anterior"
+				},
+				"aria": {
+					"sortAscending":  ": Activar para ordenar la columna de manera ascendente",
+					"sortDescending": ": Activar para ordenar la columna de manera descendente"
+				}
+			}
+	});
+
+	// Inicializamon el gráfico HIGHCHARTS
+	var chartOptions = {
+			chart: {
+				type: 'column'
+			},
+			title: {
+				text: ''
+			},
+			xAxis: {
+				categories: []
+			},
+			yAxis: {
+				title: {
+					text: 'IMPORTE'
+				},
+				max: 1000000 // Máximo del eje y según tus datos
+			},
+			plotOptions: {
+				column: {
+					borderColor: 'rgba(54, 162, 235, 1)',
+					borderWidth: 1
+				}
+			},
+			series: [{
+				name: 'IMPORTE',
+				data: [], // Datos vacíos
+				color: 'rgba(0, 154, 219, 1)'
+			}],
+
+			plotOptions: {
+				column: {
+					pointPadding: 0.2,
+					borderWidth: 0
+				}
+			},
+			yAxis: {
+				plotLines: [
+					{
+						color: 'red',        		// Color
+						dashStyle: 'solid',  		// Estilo
+						width: 1.5,            		// Grosor
+						value: 375000,           	// Valor 
+						label: {
+							text: 'Meta mensual',   // Etiqueta
+							align: 'left',    		// Posición
+							x: 10             		// Desplazamiento
+						}
+					},
+					{
+						color: 'green',        
+						dashStyle: 'solid',  
+						width: 1.5,            
+						value: <?php echo $metaAlDia; ?>,           
+						label: {
+							text: 'Meta al dia',    
+							align: 'left',    
+							x: 10             
+						}
+					}
+				]
+			}
+	};
+
+	var myChart = Highcharts.chart('myChart', chartOptions);
+
+	// Función para actualizar el gráfico con los datos de la tabla
+    function updateChart(tableData) {
+        var categories = tableData.map(function(row) {
+            return row[0];
+        });
+        var data = tableData.map(function(row) {
+            //Eliminamos caracteres no numericos y convertimos a numero entero
+            var numericValue = parseInt(row[1].replace(/[^\d.]/g, ''));
+            console.log("Estado2:",numericValue); //Revisar que se hallan pasadol los datos
+            return numericValue;
+        });
+        // Asegúrate de que myChart.xAxis[0] y myChart.series[0] existen
+        if (myChart.xAxis[0] && myChart.series[0]) {
+            // Actualizar el gráfico con las nuevas etiquetas y datos
+            myChart.xAxis[0].setCategories(categories);
+            myChart.series[0].setData(data);
+            myChart.redraw(); // Redibujar el gráfico
+        }
+    }
+
+	// Actualizar el gráfico al cargar la página
+    var initialData = table.rows({page: 'current'}).data();
+    updateChart(initialData);
+
+	// Actualizar el gráfico cada vez que se cambia la página de la tabla
+    table.on('draw', function() {
+        var data = table.rows({page:'current'}).data();
+        console.log(data); // Agregar esta línea para verificar los datos
+        updateChart(data);
+    });
+
+	
+
+});
+</script>
 
 
 
