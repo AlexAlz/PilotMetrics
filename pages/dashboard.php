@@ -38,21 +38,14 @@
 	$metasMensuales	= $datolAlDia->totalMetas($mestexto,$anio);
 	
 	foreach ($metasMensuales AS $x) {
-		echo $MetaGral 		= $x['MG'];
-		echo "<br>";
-		echo $totalCamiones 	= $x['NC'];
-		echo "<br>";
-		echo $totalDiasDelMes= $x['DM'];
-		echo "<br>";
-		echo $diaVencido		= $x['DV'];
-		echo "<br>";
-		echo $metaPorDia		= $x['MporD'];
-		echo "<br>";
-		echo $metaPorCamion  = $x['MC'];
-		echo "<br>";
-		echo $metaAdiaVencido= $x['MDV'];
-		echo "<br>";
-		echo $mva = number_format($metaAdiaVencido,2);
+		$MetaGral 		= $x['MG'];
+		$totalCamiones 	= $x['NC'];
+		$totalDiasDelMes= $x['DM'];
+		$diaVencido		= $x['DV'];
+		$metaPorDia		= $x['MporD'];
+		$metaPorCamion  = $x['MC'];
+		$metaAdiaVencido= $x['MDV'];
+		$mva = number_format($metaAdiaVencido,2);//Variable para mostrar en la grafica LINEA verde
 	}
 
 ?>
