@@ -457,45 +457,43 @@ $(document).ready(function() {
 						}
 					}
 				]
-			}
+			},
+			credits: {
+        		enabled: false
+		    }
 	};
 
 	var myChart = Highcharts.chart('myChart', chartOptions);
 
-	// Función para actualizar el gráfico con los datos de la tabla
-    function updateChart(tableData) {
-        var categories = tableData.map(function(row) {
-            return row[0];
-        });
-        var data = tableData.map(function(row) {
-            //Eliminamos caracteres no numericos y convertimos a numero entero
-            var numericValue = parseInt(row[1].replace(/[^\d.]/g, ''));
-            console.log("Estado2:",numericValue); //Revisar que se hallan pasadol los datos
-            return numericValue;
-        });
-        // Asegúrate de que myChart.xAxis[0] y myChart.series[0] existen
-        if (myChart.xAxis[0] && myChart.series[0]) {
-            // Actualizar el gráfico con las nuevas etiquetas y datos
-            myChart.xAxis[0].setCategories(categories);
-            myChart.series[0].setData(data);
-            myChart.redraw(); // Redibujar el gráfico
-        }
-    }
+		// Función para obtener los datos de la tabla
+		function getTableData(table) {
+			return table.rows({page: 'current'}).data().toArray().map(function(row) {
+				return {
+					category: row[0],
+					value: parseInt(row[1].replace(/[^\d.]/g, ''))
+				};
+			});
+		}
 
-	// Actualizar el gráfico al cargar la página
-    var initialData = table.rows({page: 'current'}).data();
-    updateChart(initialData);
+		// Función para actualizar el gráfico
+		function updateChart(chart, data) {
+			if (chart.xAxis[0] && chart.series[0]) {
+				chart.xAxis[0].setCategories(data.map(function(item) { return item.category; }));
+				chart.series[0].setData(data.map(function(item) { return item.value; }));
+				chart.redraw();
+			}
+		}
 
-	// Actualizar el gráfico cada vez que se cambia la página de la tabla
-    table.on('draw', function() {
-        var data = table.rows({page:'current'}).data();
-        console.log(data); // Agregar esta línea para verificar los datos
-        updateChart(data);
-    });
+		// Actualizar el gráfico al cargar la página
+		updateChart(myChart, getTableData(table));
 
-	
+		// Actualizar el gráfico cada vez que se cambia la página de la tabla
+		table.on('draw', function() {
+			updateChart(myChart, getTableData(table));
+		});
+			
 
-});
+		});
 </script>
 
 
