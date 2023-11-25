@@ -1,12 +1,13 @@
     <?php
     require_once("class.conexion.php");
+    
 
     class ViajesReales extends Conexion {
         public $con;
         public $dateStart;
         public $dateEnd;
         public $Fechaprimerodemes;
-        //private $indice;//apunta en que posicion se encuentra
+        
         private $error = false;
         private $mes;
 	    private $anio;
@@ -87,6 +88,7 @@
                                 WHERE
                                     a.mestm = ?
                                     AND a.anactualt = ?
+                                    AND a.operacion != 'Local'
                             ) AS t1";
             $stmt = $this->connect()->prepare($metaAdiaVencido);
             $stmt->execute([$mes,$anio]);
