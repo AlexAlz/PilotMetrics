@@ -35,22 +35,25 @@
 	$unidades 		= $unidadNegocio->selectUnidadNegocio();//Llena SELECT de formulario
 
 	//Meta al dia
-	$totalMetasAlDia	= $datolAlDia->totalMetas($mestexto,$anio);
+	$metasMensuales	= $datolAlDia->totalMetas($mestexto,$anio);
 	
-	foreach ($totalMetasAlDia AS $x) {
-		$sumaMetaGral 		= $x['SumaMetaGral'];
-		$cantidadDeMetas 	= $x['cantidadDeMeta'];
-		$mediaMetaGral 		= $sumaMetaGral / $cantidadDeMetas;
-		$metaPorDia 		= $mediaMetaGral / $totaldiasDelMes;
-		$totalMetaAlDia 	= $metaPorDia * $diaEnCurso;
-		$metaAlDia			=	(int)$totalMetaAlDia;
+	foreach ($metasMensuales AS $x) {
+		echo $MetaGral 		= $x['MG'];
+		echo "<br>";
+		echo $totalCamiones 	= $x['NC'];
+		echo "<br>";
+		echo $totalDiasDelMes= $x['DM'];
+		echo "<br>";
+		echo $diaVencido		= $x['DV'];
+		echo "<br>";
+		echo $metaPorDia		= $x['MporD'];
+		echo "<br>";
+		echo $metaPorCamion  = $x['MC'];
+		echo "<br>";
+		echo $metaAdiaVencido= $x['MDV'];
+		echo "<br>";
+		echo $mva = number_format($metaAdiaVencido,2);
 	}
-	// Media de meta Mensual
-	// foreach ($totalMetasAlDia AS $x) {
-	// 	$sumaMetaGral = $x['SumaMetaGral'];
-	// 	$cantidadDeMetas = $x['cantidadDeMeta'];
-	// 	$mediaMetaGral = $sumaMetaGral / $cantidadDeMetas;
-	// }
 
 ?>
 <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
@@ -146,103 +149,9 @@
 								<div class="col-lg-12">
 									<div class="d-flex flex-column h-100">
 										<!-- <p class="mb-1 pt-2 text-bold">Datos del <?php echo $Fechaprimerodemes; ?> al <?php echo $date; ?></p> -->
-										<!-- <canvas id="myChart" style="width:100%; "></canvas> -->
 										<div id="myChart" style="margin-bottom: 1em;" class="chart-display"></div>
 									</div>
-									
 								</div>
-								<!-- DATOS A GRAFICAR -->
-								<!-- <script>
-									var ctx = document.getElementById('myChart').getContext('2d');
-									var myChart = new Chart(ctx, {
-										type: 'bar',
-										data: {
-											labels: [
-												<?php
-												// $count = count($tractoGral);
-
-												// $i = 0;
-												// foreach ($tractoGral as $viaje) {
-												// 	$i++;
-												// 	echo "'" . $viaje['tracto'] . "'";
-												// 	if ($i != $count) {
-												// 		echo ",";
-												// 	}
-												// }
-												?>
-											],
-											datasets: [{
-												label: 'IMPORTE',
-												data: [
-													<?php
-													// $count = count($tractoGral);
-
-													// $i = 0;
-													// foreach ($tractoGral as $viaje) {
-													// 	$i++;
-													// 	echo "'" . $viaje['total'] . "'";
-													// 	if ($i != $count) {
-													// 		echo ",";
-													// 	}
-													// }
-													?>
-												],
-												borderWidth: 1,
-												borderColor: '#1a5873',
-												backgroundColor: '#00adf7',
-											}]
-										},
-										options: {
-											scales: {
-												y: {
-													beginAtZero: true,
-													max: 5000
-												}
-											},
-											plugins: {
-												datalabels: {
-													color: 'white',
-													font: {
-														size: 18
-													}
-												}
-											},
-											animation: {
-												onComplete: function() {
-													var chartInstance = this.chart,
-													ctx = chartInstance.ctx;
-													ctx.textAlign = 'center';
-													ctx.textBaseline = 'bottom';
-													//Linea de meta mensual
-													
-													var yValue = 300000; //Aquí es donde se coloca el valor de la meta mensual
-													var yScale = this.scales['y-axis-0'];
-													var pixel = yScale.getPixelForValue(yValue);
-													ctx.save();
-													ctx.beginPath();
-													ctx.moveTo(30, pixel);
-													ctx.strokeStyle = '#ff0000'; // línea a roja
-													ctx.lineTo(this.scales['x-axis-0'].right, pixel);
-													ctx.stroke();
-													ctx.restore();
-
-													//Linea de meta al dia
-													var yValue2 = <?php //echo $totalMetaAlDia; ?>; //Aquí es donde se coloca el valor del UEN respecto a los dias trancurridos en el mes
-													var yScale2 = this.scales['y-axis-0'];
-													var pixel2 = yScale2.getPixelForValue(yValue2);
-													ctx.save();
-													ctx.beginPath();
-													ctx.moveTo(30, pixel2);
-													ctx.strokeStyle = '#00ff00'; // línea a verde
-													ctx.lineTo(this.scales['x-axis-0'].right, pixel2);
-													ctx.stroke();
-													ctx.restore();
-												}
-											}
-										}
-									});
-								</script> -->
-								<!-- END DATOS A GRAFICAR -->
 							</div>
 						</div>
 					</div>

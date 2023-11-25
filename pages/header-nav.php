@@ -22,10 +22,13 @@
 	<!-- Libreria para graficar chart.js -->
 	<script src="https://cdn.jsdelivr.net/npm/chart.js@latest/dist/Chart.min.js"></script>
 	<!-- Libreria para graficar highchart -->
-	<script src="../assets/js/chart/accessibility.js"></script>
+	<!-- <script src="../assets/js/chart/accessibility.js"></script>
 	<script src="../assets/js/chart/export-data.js"></script>
-	<script src="../assets/js/chart/exporting.js"></script>
-	<script src="../assets/js/chart//highcharts.js"></script>
+	<script src="../assets/js/chart/exporting.js"></script> -->
+	<script src="../assets/js/chart/highcharts.js"></script>
+	<script src="https://code.highcharts.com/modules/exporting.js"></script> <!-- opcional -->
+	<script src="https://code.highcharts.com/modules/offline-exporting.js"></script>
+	<script src="https://code.highcharts.com/modules/export-data.js"></script>
 	
 
 	<!-- Enlace al complemento que muestra las etiquetas de los datos -->
@@ -36,6 +39,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<!-- DataTable -->
 	<link rel="stylesheet" href="//cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+
 </head>
 
 <body class="g-sidenav-show  bg-gray-100">

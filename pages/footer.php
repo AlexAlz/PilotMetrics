@@ -395,6 +395,23 @@ $(document).ready(function() {
 					"sortDescending": ": Activar para ordenar la columna de manera descendente"
 				}
 			}
+			// dom: 'Bfrtip',
+			// buttons: [
+			// 	'copy', 'csv', 'excel', 'pdf', 'print',
+			// 	// {
+            //     // extend: 'excel',
+            //     // text: '<button class="btn btn-success">Excel</button>'
+            // 	// },
+			// 	// {
+            //     // extend: 'pdf',
+            //     // text: '<button class="btn btn-success">PDF</button>'
+            // 	// },
+			// 	// {
+            //     // extend: 'print',
+            //     // text: '<button class="btn btn-success">Imprimir</button>'
+            // 	// },
+
+			// ]
 	});
 
 	// Inicializamon el gráfico HIGHCHARTS
@@ -412,7 +429,7 @@ $(document).ready(function() {
 				title: {
 					text: 'IMPORTE'
 				},
-				max: 1000000 // Máximo del eje y según tus datos
+				max: 200000000 // Máximo del eje y según tus datos
 			},
 			plotOptions: {
 				column: {
@@ -438,23 +455,27 @@ $(document).ready(function() {
 						color: 'red',        		// Color
 						dashStyle: 'solid',  		// Estilo
 						width: 1.5,            		// Grosor
-						value: 375000,           	// Valor 
+						value: <?php echo "$MetaGral"; ?>,           	// Valor 
 						label: {
-							text: 'Meta mensual',   // Etiqueta
+							text: 'Meta General',   // Etiqueta
 							align: 'left',    		// Posición
-							x: 10             		// Desplazamiento
-						}
+							x: 10,            		// Desplazamiento
+							zIndex: 5
+							},
+						zIndex: 3
 					},
 					{
 						color: 'green',        
 						dashStyle: 'solid',  
 						width: 1.5,            
-						value: <?php echo $metaAlDia; ?>,           
+						value: <?php echo "$metaAdiaVencido"; ?>,           
 						label: {
-							text: 'Meta al dia',    
+							text: 'Meta al dia $ <?php echo "$mva"; ?>',    
 							align: 'left',    
-							x: 10             
-						}
+							x: 10,           
+							zIndex: 5
+							},
+						zIndex: 3
 					}
 				]
 			},
@@ -495,7 +516,13 @@ $(document).ready(function() {
 
 		});
 </script>
-
+<!-- Incluir los archivos JS para los botones de exportación -->
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.7.1/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.html5.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.print.min.js"></script>
 
 
 

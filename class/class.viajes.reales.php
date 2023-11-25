@@ -6,21 +6,12 @@
         public $dateStart;
         public $dateEnd;
         public $Fechaprimerodemes;
-        //variables para la paginacion
-        //private $paginaActual;
-        private $totalPaginas;
-        private $nResultados;
-        private $resultadosPorPagina;
         //private $indice;//apunta en que posicion se encuentra
         private $error = false;
         private $mes;
 	    private $anio;
 
         function __construct($dateStart, $dateEnd, $mes , $anio ) {
-            //Parte de la paginacion
-            // $this->resultadosPorPagina = $nPorPagina;
-            // $this->indice = 0;
-            // $this->paginaActual = 1;
 
             $this->con = $this->connect();
             //borrar var dump
@@ -73,17 +64,31 @@
 
         // Funcion para sacar la meta y media
         function totalMetas($mes,$anio) {
-            $metaaldia = "SELECT
-                            COUNT(DISTINCT meta) AS cantidadDeMeta,
-                            SUM(DISTINCT meta) AS SumaMetaGral
+            $metaAdiaVencido = "SELECT
+                            t1.metaGral AS MG,
+                            t1.NumeroDeCamiones AS NC,
+                            t1.diasDelMes AS DM,
+                            t1.diaVencido AS DV,
+                            /*Meta_por_diaria = meta_general / total_de_dias_al _mes*/
+                            ( t1.metaGral/ t1.diasDelMes ) AS MporD,
+                            /*Meta_por_camion = meta_por_dia / numero_de_camiones*/
+                            ( ( t1.metaGral/ t1.diasDelMes ) / t1.NumeroDeCamiones ) AS MC,
+                            /*Meta_a_dia_vencido */
+                            ( ( t1.metaGral/ t1.diasDelMes ) / t1.NumeroDeCamiones ) * t1.diaVencido AS MDV
                         FROM
-                            metatractor a
-                        WHERE
-                            a.mestm = ?
-                            AND a.anactualt = ?
-                            AND a.meta != '0'
-                        ";
-            $stmt = $this->connect()->prepare($metaaldia);
+                            (
+                                SELECT
+                                    SUM(a.meta) AS MetaGral,
+                                    COUNT(a.operacion) AS NumeroDeCamiones,
+                                    DAY(LAST_DAY(NOW())) AS diasDelMes,
+                                    DATEDIFF(CURDATE(), DATE_FORMAT(CURDATE() ,'%Y-%m-01')) AS diaVencido
+                                FROM
+                                    metatractor a
+                                WHERE
+                                    a.mestm = ?
+                                    AND a.anactualt = ?
+                            ) AS t1";
+            $stmt = $this->connect()->prepare($metaAdiaVencido);
             $stmt->execute([$mes,$anio]);
             $metaAlDiaTranscurrido = $stmt->fetchAll(PDO::FETCH_ASSOC);
             return $metaAlDiaTranscurrido;
