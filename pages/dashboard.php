@@ -30,7 +30,7 @@
 	$unidadNegocio	= new LlenadoAutDeSelect();
 	
 
-	//Funciones para presentar los datos
+	//Funciones para presentar los datos para llenar SELECT
 	$tractoGral 	= $datolAlDia->obtenerDatosTracto();
 	$unidades 		= $unidadNegocio->selectUnidadNegocio();//Llena SELECT de formulario
 
