@@ -59,48 +59,20 @@
 		<div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
 			<ul class="navbar-nav">
 				<li class="nav-item">
-					<a class="nav-link  active" href="../pages/dashboard.html">
+					<a class="nav-link  active" href="../pages/dashboard.php">
 						<div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
 							<!-- <i class="fa fa-bar-chart text-lg opacity-10" aria-hidden="true"></i> -->
-							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bar-chart-line-fill" viewBox="0 0 16 16">
-								<path d="M11 2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1v-3a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3h1V7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7h1V2z"/>
-							</svg>
+							<i class='fas fa-truck-pickup' style='font-size:24px'></i>
 						</div>
 						<span class="nav-link-text ms-1">Métricas</span>
 					</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link  " href="../pages/tables.html">
-						<div
-							class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-							<svg width="12px" height="12px" viewBox="0 0 42 42" version="1.1"
-								xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-								<title>office</title>
-								<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-									<g transform="translate(-1869.000000, -293.000000)" fill="#FFFFFF"
-										fill-rule="nonzero">
-										<g transform="translate(1716.000000, 291.000000)">
-											<g id="office" transform="translate(153.000000, 2.000000)">
-												<svg xmlns="http://www.w3.org/2000/svg"
-													class="icon icon-tabler icon-tabler-thumb-down-filled" width="48"
-													height="48" viewBox="0 0 24 24" stroke-width="0.5" stroke="#2c3e50"
-													fill="none" stroke-linecap="round" stroke-linejoin="round">
-													<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-													<path
-														d="M13 21.008a3 3 0 0 0 2.995 -2.823l.005 -.177v-4h2a3 3 0 0 0 2.98 -2.65l.015 -.173l.005 -.177l-.02 -.196l-1.006 -5.032c-.381 -1.625 -1.502 -2.796 -2.81 -2.78l-.164 .008h-8a1 1 0 0 0 -.993 .884l-.007 .116l.001 9.536a1 1 0 0 0 .5 .866a2.998 2.998 0 0 1 1.492 2.396l.007 .202v1a3 3 0 0 0 3 3z"
-														stroke-width="0" fill="currentColor" />
-													<path
-														d="M5 14.008a1 1 0 0 0 .993 -.883l.007 -.117v-9a1 1 0 0 0 -.883 -.993l-.117 -.007h-1a2 2 0 0 0 -1.995 1.852l-.005 .15v7a2 2 0 0 0 1.85 1.994l.15 .005h1z"
-														stroke-width="0" fill="currentColor" />
-												</svg>
-											</g>
-										</g>
-									</g>
-								</g>
-							</svg>
+					<a class="nav-link  active" href="../pages/promedioConductor.php">
+						<div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+							<i class='fas fa-user' style='font-size:24px'></i>
 						</div>
-						<span class="nav-link-text ms-1">No sé que poner aquí</span>
+						<span class="nav-link-text ms-1">Promedio conductores</span>
 					</a>
+					
 				</li>
 				<!-- <li class="nav-item">
 		  <a class="nav-link  " href="../pages/billing.html">

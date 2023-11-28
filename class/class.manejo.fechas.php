@@ -1,5 +1,15 @@
 <?php
-class ManejoDeFechas {
+include_once("class.conexion.php");
+class ManejoDeFechas extends Conexion{
+
+    private $con;
+
+    function __construct()
+    {
+
+        $this->con = $this->connect();
+    }
+
 
     //Seleccion de mes
     function obtenerMes($numero) {
@@ -31,6 +41,14 @@ class ManejoDeFechas {
             default:
                 return "Número inválido. Por favor, ingresa un número del 1 al 12.";
         }
+    }
+
+    function obtMes() {
+        $obtMeses = "SELECT mes FROM meses";
+        $stmt = $this->con->prepare($obtMeses);
+        $stmt->execute();
+        $stmes = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $stmes;
     }
 }
 ?>
