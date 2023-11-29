@@ -21,16 +21,17 @@
 	$mes 				= date('m');
 	$anio 				= date('Y');
 	$totaldiasDelMes 	= date('t');
+	$unidadDeNegacio = ""; //*Añadí esto para que esté vacío en caso de no seleccionar UEN
 
 	//Instancia y convercion de mes numero a mes letra
 	$obtmes			= new ManejoDeFechas();
 	$mestexto		= $obtmes->obtenerMes($mes);//Se pasa el dato extraido del sistema en numero y se convierte a texto para consulta
 
-	$datolAlDia 	= new ViajesReales($Fechaprimerodemes, $date, $mestexto , $anio);
+	$datolAlDia 	= new ViajesReales($Fechaprimerodemes, $date, $mestexto , $anio, $unidadDeNegacio); //*Añadí la uen como parámetro
 	$unidadNegocio	= new LlenadoAutDeSelect();
 	
 
-	//Funciones para presentar los datos
+	//Funciones para presentar los datos para llenar SELECT
 	$tractoGral 	= $datolAlDia->obtenerDatosTracto();
 	$unidades 		= $unidadNegocio->selectUnidadNegocio();//Llena SELECT de formulario
 

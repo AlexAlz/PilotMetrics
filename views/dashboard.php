@@ -405,7 +405,7 @@ $tractoGral = $datolAlDia->obtenerDatosTracto();
 								</div>
 								<h4 class="font-weight-bolder">36K</h4>
 								<div class="progress w-75">
-									<div class="progress-bar bg-dark w-60" role="progressbar" aria-valuenow="60"
+									<div class="progress-bar bg-dark w-60" role="progressbar" aria-valuenTypeow="60"
 										aria-valuemin="0" aria-valuemax="100"></div>
 								</div>
 							</div>
@@ -444,7 +444,7 @@ $tractoGral = $datolAlDia->obtenerDatosTracto();
 								</div>
 								<h4 class="font-weight-bolder">2m</h4>
 								<div class="progress w-75">
-									<div class="progress-bar bg-dark w-90" role="progressbar" aria-valuenow="90"
+									<div class="progress-bar bg-dark w-90" role="progressbar" aria-valuenTypeow="90"
 										aria-valuemin="0" aria-valuemax="100"></div>
 								</div>
 							</div>
@@ -477,7 +477,7 @@ $tractoGral = $datolAlDia->obtenerDatosTracto();
 								</div>
 								<h4 class="font-weight-bolder">435$</h4>
 								<div class="progress w-75">
-									<div class="progress-bar bg-dark w-30" role="progressbar" aria-valuenow="30"
+									<div class="progress-bar bg-dark w-30" role="progressbar" aria-valuenTypeow="30"
 										aria-valuemin="0" aria-valuemax="100"></div>
 								</div>
 							</div>
@@ -513,7 +513,7 @@ $tractoGral = $datolAlDia->obtenerDatosTracto();
 								</div>
 								<h4 class="font-weight-bolder">43</h4>
 								<div class="progress w-75">
-									<div class="progress-bar bg-dark w-50" role="progressbar" aria-valuenow="50"
+									<div class="progress-bar bg-dark w-50" role="progressbar" aria-valuenTypeow="50"
 										aria-valuemin="0" aria-valuemax="100"></div>
 								</div>
 							</div>
@@ -635,7 +635,7 @@ $tractoGral = $datolAlDia->obtenerDatosTracto();
 											</div>
 											<div class="progress">
 												<div class="progress-bar bg-gradient-info w-60" role="progressbar"
-													aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+													aria-valuenTypeow="60" aria-valuemin="0" aria-valuemax="100"></div>
 											</div>
 										</div>
 									</td>
@@ -677,7 +677,7 @@ $tractoGral = $datolAlDia->obtenerDatosTracto();
 											</div>
 											<div class="progress">
 												<div class="progress-bar bg-gradient-info w-10" role="progressbar"
-													aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+													aria-valuenTypeow="10" aria-valuemin="0" aria-valuemax="100"></div>
 											</div>
 										</div>
 									</td>
@@ -719,7 +719,7 @@ $tractoGral = $datolAlDia->obtenerDatosTracto();
 											</div>
 											<div class="progress">
 												<div class="progress-bar bg-gradient-success w-100" role="progressbar"
-													aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+													aria-valuenTypeow="100" aria-valuemin="0" aria-valuemax="100"></div>
 											</div>
 										</div>
 									</td>
@@ -771,7 +771,7 @@ $tractoGral = $datolAlDia->obtenerDatosTracto();
 											</div>
 											<div class="progress">
 												<div class="progress-bar bg-gradient-success w-100" role="progressbar"
-													aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+													aria-valuenTypeow="100" aria-valuemin="0" aria-valuemax="100"></div>
 											</div>
 										</div>
 									</td>
@@ -809,7 +809,7 @@ $tractoGral = $datolAlDia->obtenerDatosTracto();
 											</div>
 											<div class="progress">
 												<div class="progress-bar bg-gradient-info w-25" role="progressbar"
-													aria-valuenow="25" aria-valuemin="0" aria-valuemax="25"></div>
+													aria-valuenTypeow="25" aria-valuemin="0" aria-valuemax="25"></div>
 											</div>
 										</div>
 									</td>
@@ -851,7 +851,7 @@ $tractoGral = $datolAlDia->obtenerDatosTracto();
 											</div>
 											<div class="progress">
 												<div class="progress-bar bg-gradient-info w-40" role="progressbar"
-													aria-valuenow="40" aria-valuemin="0" aria-valuemax="40"></div>
+													aria-valuenTypeow="40" aria-valuemin="0" aria-valuemax="40"></div>
 											</div>
 										</div>
 									</td>
