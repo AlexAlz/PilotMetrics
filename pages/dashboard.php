@@ -33,6 +33,8 @@
 
 	//Funciones para presentar los datos para llenar SELECT
 	$tractoGral 	= $datolAlDia->obtenerDatosTracto();
+	$tractoSinViajes= $datolAlDia->obtenerDatosTractoSinViajes();
+	$tractosSiMeta	= $datolAlDia->vehiculosSinMeta();
 	$unidades 		= $unidadNegocio->selectUnidadNegocio();//Llena SELECT de formulario
 
 	//Meta al dia
@@ -213,6 +215,106 @@
 			</div>
 			<!-- END TABLA CON DATOS -->
 			
+			<!-- TABLA CON DATOS TRACTOS SIN VIAJES y VENICULOS SIN META -->
+			<div class="row mt-4">
+				<!-- TRACTOS SIN VIAJES -->
+				<div class="col-lg-6 mb-lg-0 mb-4">
+					<div class="card">
+						<div class="card-body p-3">
+							<div class="col-lg-12 ms-auto mt-5 mt-lg-0">
+								<div class="card mb-4">
+									<div class="card-body px-0 pt-0 pb-2">
+										<div class="table-responsive p-0 ">
+											<table class="table align-items-center justify-content-center mb-0 display table-striped table-bordered" id="tractosSinViajes" style="width:100%">
+												<thead class="text-center">
+													<tr class="table-dark">
+														<th scope="col" class="text-uppercase text-center" colspan="2">UNIDADES SIN VIAJE</th>
+													</tr>
+													<tr class="table-dark">
+														<th scope="col" class="text-uppercase">Tracto Sin Viaje</th>
+														<th scope="col" class="text-uppercase">Unidad de Negocio (UEN)</th>
+													</tr>
+												</thead>
+												<tbody class="text-center">
+													<?php foreach ($tractoSinViajes as $sinviaje) : ?>
+														<tr>
+															<td>
+																<div class="px-2">
+																	<div class="my-auto">
+																		<h6 class="mb-0 text-sm">
+																			<?= $sinviaje['eco'] ?>
+																		</h6>
+																	</div>
+																</div>
+															</td>
+															<td>
+																<p class="text-sm font-weight-bold mb-0">
+																	<?= $sinviaje['operacion'] ?>
+																</p>
+															</td>
+														</tr>
+													<?php endforeach; ?>
+												</tbody>
+											</table>
+										</div>
+									</div>
+									<br>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- TRACTOS SIN META -->
+				<div class="col-lg-6 mb-lg-0 mb-4">
+					<div class="card">
+						<div class="card-body p-3">
+							<div class="col-lg-12 ms-auto mt-5 mt-lg-0">
+								<div class="card mb-4">
+									<div class="card-body px-0 pt-0 pb-2">
+										<div class="table-responsive p-0 ">
+											<table class="table align-items-center justify-content-center mb-0 display table-striped table-bordered" id="tractosSinMeta" style="width:100%">
+												<thead class="text-center">
+													<tr class="table-dark">
+														<th scope="col" class="text-uppercase text-center" colspan="2">UNIDADES SIN META</th>
+													</tr>
+													<tr class="table-dark">
+														<th scope="col" class="text-uppercase">Tractos</th>
+														<th scope="col" class="text-uppercase">Unidad de Negocio (UEN)</th>
+													</tr>
+												</thead>
+												<tbody class="text-center">
+													<?php foreach ($tractosSiMeta as $sinMeta) : ?>
+														<tr>
+															<td>
+																<div class="px-2">
+																	<div class="my-auto">
+																		<h6 class="mb-0 text-sm">
+																			<?= $sinMeta['eco'] ?>
+																		</h6>
+																	</div>
+																</div>
+															</td>
+															<td>
+																<p class="text-sm font-weight-bold mb-0">
+																	<?= $sinMeta['operacion'] ?>
+																</p>
+															</td>
+														</tr>
+													<?php endforeach; ?>
+												</tbody>
+											</table>
+										</div>
+									</div>
+									<br>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- END TABLA CON DATOS TRACTOS SIN VIAJES y VENICULOS SIN META -->
+
+
 		</div>
 	</div>
 	

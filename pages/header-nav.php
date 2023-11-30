@@ -41,6 +41,8 @@
 	<link rel="stylesheet" href="//cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
 	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
 	<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+	<!-- SWEET ALERT -->
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </head>
 

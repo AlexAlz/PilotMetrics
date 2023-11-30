@@ -213,26 +213,61 @@
 
 <!-- SCRIPT BUSQUEDA POR DIAS ESPECIFICADO -->
 <script>
+	// $(document).ready(function(){
+	// 	$("#btn_consumo_por_unidad").click(function(){
+	// 		var fechaInicio = $("#date_start").val();
+	// 		var fechaTermino = $("#date_end").val();
+	// 		var unidadNegocio = $("#uen").val();
+
+	// 		$.ajax({
+	// 			url: '../viewsPorBusqueda/consumoPorUnidadYMetaMensual.php',
+	// 			type: 'post',
+	// 			data: {date_start: fechaInicio, date_end: fechaTermino, uen: unidadNegocio},
+	// 			beforeSend: function() {
+	// 				$("#datosProcesados").html("<div style='text-align:center;'><samp>Calculando registros...</samp><br><br><br><img src='../assets/img/gif/loading.gif' alt='Procesando Datos'></div>");
+	// 			},
+	// 			success: function(response){
+	// 				$("#datosProcesados").html(response);
+	// 			}
+	// 		});
+	// 	});
+	// });
+
+</script>
+<script>
 	$(document).ready(function(){
-		$("#btn_consumo_por_unidad").click(function(){
-			var fechaInicio = $("#date_start").val();
-			var fechaTermino = $("#date_end").val();
-			var unidadNegocio = $("#uen").val();
+    $("#btn_consumo_por_unidad").click(function(){
+        var fechaInicio = $("#date_start").val();
+        var fechaTermino = $("#date_end").val();
+        var unidadNegocio = $("#uen").val();
 
-			$.ajax({
-				url: '../viewsPorBusqueda/consumoPorUnidadYMetaMensual.php',
-				type: 'post',
-				data: {date_start: fechaInicio, date_end: fechaTermino, uen: unidadNegocio},
-				beforeSend: function() {
-					$("#datosProcesados").html("<div style='text-align:center;'><samp>Calculando registros...</samp><br><br><br><img src='../assets/img/gif/loading.gif' alt='Procesando Datos'></div>");
-				},
-				success: function(response){
-					$("#datosProcesados").html(response);
-				}
-			});
-		});
-	});
+        // Convierte las fechas a objetos Date de JavaScript
+        var inicio = new Date(fechaInicio);
+        var final = new Date(fechaTermino);
 
+        // Comprueba si la fecha de inicio es posterior a la fecha final
+        if(inicio > final) {
+			Swal.fire({
+				icon: 'error',
+				title: 'Oops...',
+				text: 'La fecha final no puede ser anterior a la fecha de inicio!'
+			})
+          return; // Detiene la ejecución de la función
+        }
+
+        $.ajax({
+            url: '../viewsPorBusqueda/consumoPorUnidadYMetaMensual.php',
+            type: 'post',
+            data: {date_start: fechaInicio, date_end: fechaTermino, uen: unidadNegocio},
+            beforeSend: function() {
+                $("#datosProcesados").html("<div style='text-align:center;'><samp>Calculando registros...</samp><br><br><br><img src='../assets/img/gif/loading.gif' alt='Procesando Datos'></div>");
+            },
+            success: function(response){
+                $("#datosProcesados").html(response);
+            }
+        });
+    });
+});
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="//cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
@@ -266,23 +301,7 @@
 					"sortDescending": ": Activar para ordenar la columna de manera descendente"
 				}
 			}
-			// dom: 'Bfrtip',
-			// buttons: [
-			// 	'copy', 'csv', 'excel', 'pdf', 'print',
-			// 	// {
-            //     // extend: 'excel',
-            //     // text: '<button class="btn btn-success">Excel</button>'
-            // 	// },
-			// 	// {
-            //     // extend: 'pdf',
-            //     // text: '<button class="btn btn-success">PDF</button>'
-            // 	// },
-			// 	// {
-            //     // extend: 'print',
-            //     // text: '<button class="btn btn-success">Imprimir</button>'
-            // 	// },
-
-			// ]
+			
 	});
 
 	// Inicializamon el gráfico HIGHCHARTS
@@ -386,6 +405,104 @@
 			
 
 		});
+</script>
+<!-- TRACTOS SIN VIAJES -->
+<script>
+	$(document).ready(function() {
+		var table = $('#tractosSinViajes').DataTable({
+				"order": [[ 1, "desc" ]],
+				"language": {
+					"processing":     "Procesando...",
+					"lengthMenu":     "Mostrar MENU registros",
+					"zeroRecords":    "No se encontraron resultados",
+					"emptyTable":     "Ningún dato disponible en esta tabla",
+					"info":           " Registros del START al END de un total de TOTAL registros",
+					"infoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+					"infoFiltered":   "(filtrado de un total de MAX registros)",
+					"infoPostFix":    "",
+					"search":         "Buscar:",
+					"url":            "",
+					"infoThousands":  ",",
+					"loadingRecords": "Cargando...",
+					"paginate": {
+						"first":    "Primero",
+						"last":     "Último",
+						"next":     "Siguiente",
+						"previous": "Anterior"
+					},
+					"aria": {
+						"sortAscending":  ": Activar para ordenar la columna de manera ascendente",
+						"sortDescending": ": Activar para ordenar la columna de manera descendente"
+					}
+				}
+				// dom: 'Bfrtip',
+				// buttons: [
+				// 	'copy', 'csv', 'excel', 'pdf', 'print',
+				// 	// {
+				//     // extend: 'excel',
+				//     // text: '<button class="btn btn-success">Excel</button>'
+				// 	// },
+				// 	// {
+				//     // extend: 'pdf',
+				//     // text: '<button class="btn btn-success">PDF</button>'
+				// 	// },
+				// 	// {
+				//     // extend: 'print',
+				//     // text: '<button class="btn btn-success">Imprimir</button>'
+				// 	// },
+
+				// ]
+		});
+	});
+</script>
+<!-- TRACTOS SIN META -->
+<script>
+	$(document).ready(function() {
+		var table = $('#tractosSinMeta').DataTable({
+				"order": [[ 1, "desc" ]],
+				"language": {
+					"processing":     "Procesando...",
+					"lengthMenu":     "Mostrar MENU registros",
+					"zeroRecords":    "No se encontraron resultados",
+					"emptyTable":     "Ningún dato disponible en esta tabla",
+					"info":           " Registros del START al END de un total de TOTAL registros",
+					"infoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+					"infoFiltered":   "(filtrado de un total de MAX registros)",
+					"infoPostFix":    "",
+					"search":         "Buscar:",
+					"url":            "",
+					"infoThousands":  ",",
+					"loadingRecords": "Cargando...",
+					"paginate": {
+						"first":    "Primero",
+						"last":     "Último",
+						"next":     "Siguiente",
+						"previous": "Anterior"
+					},
+					"aria": {
+						"sortAscending":  ": Activar para ordenar la columna de manera ascendente",
+						"sortDescending": ": Activar para ordenar la columna de manera descendente"
+					}
+				}
+				// dom: 'Bfrtip',
+				// buttons: [
+				// 	'copy', 'csv', 'excel', 'pdf', 'print',
+				// 	// {
+				//     // extend: 'excel',
+				//     // text: '<button class="btn btn-success">Excel</button>'
+				// 	// },
+				// 	// {
+				//     // extend: 'pdf',
+				//     // text: '<button class="btn btn-success">PDF</button>'
+				// 	// },
+				// 	// {
+				//     // extend: 'print',
+				//     // text: '<button class="btn btn-success">Imprimir</button>'
+				// 	// },
+
+				// ]
+		});
+	});
 </script>
 <!-- Incluir los archivos JS para los botones de exportación -->
 <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.7.1/js/dataTables.buttons.min.js"></script>
